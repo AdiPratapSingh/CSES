@@ -19,3 +19,25 @@ int32_t main(){
     cin.tie(0)->sync_with_stdio(0);
     solve();
 }
+
+void solve(){
+    int n;
+    cin>>n;
+    int x;
+    cin>>x;
+    int coins[n];
+    for(int i=0;i<n;i++){
+        cin>>coins[i];
+    }
+    sort(coins,coins+n);
+    vector<int> dp(x+1,0);
+    dp[0] = 1;
+    for(int i=1;i<x+1;i++){
+        for(int j=0;j<n&&i-coins[j]>=0;j++){
+            dp[i]+=dp[i-coins[j]];
+        }
+        dp[i]%=1000000007;
+    }
+    cout<<dp[x];
+    // prnt(dp);
+}
